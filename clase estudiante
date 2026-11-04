@@ -1,0 +1,104 @@
+/**
+ * Actividad: Extensión de la aplicación con Herencia y Polimorfismo.
+ * Basado en la aplicación de la Unidad 2.
+ */
+
+// 1. CLASE BASE (Superclase)
+class Estudiante {
+    // Atributos comunes de cualquier estudiante
+    protected String nombre;
+    protected String carrera;
+    protected double calificacion1;
+    protected double calificacion2;
+
+    // Constructor de la clase base
+    public Estudiante(String nombre, String carrera, double calificacion1, double calificacion2) {
+        this.nombre = nombre;
+        this.carrera = carrera;
+        this.calificacion1 = calificacion1;
+        this.calificacion2 = calificacion2;
+    }
+
+    // Método para calcular el promedio (reutilizado por las subclases)
+    public double calcularPromedio() {
+        return (calificacion1 + calificacion2) / 2.0;
+    }
+
+    // Método base para mostrar la información general
+    public void mostrarDetalles() {
+        System.out.println("----------------------------------------");
+        System.out.println("Estudiante: " + nombre);
+        System.out.println("Carrera: " + carrera);
+        System.out.println("Promedio Final: " + calcularPromedio());
+    }
+}
+
+// 2. CLASE DERIVADA 1 (Subclase para Ingeniería)
+class EstudianteIngenieria extends Estudiante {
+    // Atributo exclusivo de la subclase
+    private int proyectosPracticos;
+
+    // Constructor que utiliza 'super' para heredar miembros de la clase base
+    public EstudianteIngenieria(String nombre, double calificacion1, double calificacion2, int proyectosPracticos) {
+        super(nombre, "Ingeniería", calificacion1, calificacion2);
+        this.proyectosPracticos = proyectosPracticos;
+    }
+
+    // Método exclusivo de EstudianteIngenieria
+    public void programar() {
+        System.out.println("-> " + nombre + " está escribiendo código en Java y diseñando diagramas UML.");
+    }
+
+    // Sobrescritura (Override) del método mostrarDetalles para añadir datos propios
+    @Override
+    public void mostrarDetalles() {
+        super.mostrarDetalles(); // Llama al método original de la clase base
+        System.out.println("Proyectos Prácticos Entregados: " + proyectosPracticos);
+        System.out.println("----------------------------------------");
+    }
+}
+
+// 3. CLASE DERIVADA 2 (Subclase para Administración)
+class EstudianteAdministracion extends Estudiante {
+    // Atributo exclusivo de la subclase
+    private String areaEspecializacion;
+
+    // Constructor utilizando 'super'
+    public EstudianteAdministracion(String nombre, double calificacion1, double calificacion2, String areaEspecializacion) {
+        super(nombre, "Administración", calificacion1, calificacion2);
+        this.areaEspecializacion = areaEspecializacion;
+    }
+
+    // Método exclusivo de EstudianteAdministracion
+    public void gestionarProyecto() {
+        System.out.println("-> " + nombre + " está elaborando un plan de negocios en el área de " + areaEspecializacion + ".");
+    }
+
+    // Sobrescritura del método mostrarDetalles
+    @Override
+    public void mostrarDetalles() {
+        super.mostrarDetalles(); // Llama al método original de la clase base
+        System.out.println("Área de Especialización: " + areaEspecializacion);
+        System.out.println("----------------------------------------");
+    }
+}
+
+// 4. PROGRAMA PRINCIPAL (Clase ejecutable)
+public class EstudianteApp {
+    public static void main(String[] args) {
+        System.out.println("Iniciando pruebas de la actividad con Herencia...\n");
+
+        // Instanciación de Objetos de las subclases derivadas
+        EstudianteIngenieria alumno1 = new EstudianteIngenieria("Alejandro", 90.0, 85.5, 4);
+        EstudianteAdministracion alumno2 = new EstudianteAdministracion("Sofia", 95.0, 92.0, "Finanzas Corporativas");
+
+        // Uso de métodos heredados, sobrescritos y exclusivos
+        alumno1.mostrarDetalles();
+        alumno1.programar();
+
+        System.out.println();
+
+        alumno2.mostrarDetalles();
+        alumno2.gestionarProyecto();
+    }
+}
